@@ -1,0 +1,58 @@
+package main
+
+import "fmt"
+
+type Node struct {
+	Data int
+	Next *Node
+}
+
+func newNode(data int) *Node {
+	return &Node{Data: data}
+}
+
+type SinglyLinkedList struct {
+	Head   *Node
+	Tail   *Node
+	Length int
+}
+
+func newSinglyLinkedList() SinglyLinkedList {
+	return SinglyLinkedList{}
+}
+
+func (s *SinglyLinkedList) push(data int) {
+	node := newNode(data)
+
+	if s.Head == nil {
+		s.Head = node
+		s.Tail = node
+	} else {
+		s.Tail.Next = node
+		s.Tail = node
+	}
+
+	s.Length++
+}
+
+func (s *SinglyLinkedList) print() {
+	current := s.Head
+
+	for current != nil {
+		fmt.Println(current.Data)
+		current = current.Next
+	}
+}
+
+func main() {
+	var n, val int
+	fmt.Scanf("%d\n", &n)
+
+	llist := newSinglyLinkedList()
+	for i := 0; i < n; i++ {
+		fmt.Scanf("%d\n", &val)
+		llist.push(val)
+	}
+
+	llist.print()
+}
